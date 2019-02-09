@@ -9,10 +9,11 @@ import sys
 import time
 import pandas
 import datetime
+wkdir="../../.."
 if sys.platform=='linux':
-    pth='./下載'
+    pth=wkdir+'/下載'
 else:
-    pth='./Downloads'
+    pth=wkdir+'/Downloads'
 def Descrypt(filename):
     code = 'nooneknows'
     with open(filename, 'rb') as fobj:
@@ -32,7 +33,7 @@ def Descrypt(filename):
     return data
 
 def getCsv(qryTy):
-    driver=webdriver.Chrome('./chromedriver')
+    driver=webdriver.Chrome(wkdir+'/chromedriver')
     #driver.implicitly_wait(30)
     driver.get('https://etrade.yuanta.com.tw/tsweb/')
     #設定身份證
@@ -40,7 +41,7 @@ def getCsv(qryTy):
     ele=driver.find_element_by_xpath('//*[@id="Login_frm"]/table[1]/tbody/tr[2]/td[2]/table/tbody/tr[2]/td[2]/input[2]')
     ele.click()
     #輸入帳號密碼
-    data=Descrypt("mydata.txt").rstrip().split(',')
+    data=Descrypt(wkdir+"/mydata.txt").rstrip().split(',')
     ele=driver.find_element_by_id('loginid')
     ele.send_keys(data[0])
     ele=driver.find_element_by_id('loginPWD')
@@ -79,7 +80,7 @@ def getCsv(qryTy):
     ele.click()
     time.sleep(5)
     #轉CSV檔
-    for f in glob.glob("./Dropbox/a*.csv"):
+    for f in glob.glob(wkdir+"/Dropbox/a*.csv"):
         os.remove(f)
     dfs=pandas.read_html(pth+'/投資明細.xls')
     df=dfs[0]
@@ -90,13 +91,13 @@ def getCsv(qryTy):
     #如果是上月，重新計算年度
     if qryTy=='4':
         yr=str((today - relativedelta(months=1)).year)
-    df.to_csv('./Dropbox/a'+yr+'.csv', index=0,encoding='utf-8')
+    df.to_csv(wkdir+'/Dropbox/a'+yr+'.csv', index=0,encoding='utf-8')
     #關閉瀏覽器
     driver.close()
-    fd=open("./Dropbox/fn.txt","w")
+    fd=open(wkdir+"/Dropbox/fn.txt","w")
     fd.write("/a"+yr+".csv,"+qryTy)
     fd.close()
-    return './Dropbox/a'+yr+'.csv轉檔成功'
+    return wkdir+'/Dropbox/a'+yr+'.csv轉檔成功'
 
 #MENU選擇
 sel=(input("\n(T)本年度 (3)本月 (4)上月：")).upper()
