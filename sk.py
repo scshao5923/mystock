@@ -100,9 +100,12 @@ def getCsv(qryTy):
     return wkdir+'/Dropbox/a'+yr+'.csv轉檔成功'
 
 #MENU選擇
-sel=(input("\n(T)本年度 (3)本月 (4)上月：")).upper()
-if sel in('T','3','4'):
-    print(getCsv(sel))
+if os.path.exists(pth+'/my_private_rsa_key.bin'):
+    sel=(input("\n(T)本年度 (3)本月 (4)上月：")).upper()
+    if sel in('T','3','4'):
+        print(getCsv(sel))
+    else:
+        print("錯誤: 只能輸入 3, 4, T!")
 else:
-    print("錯誤: 只能輸入 3, 4, T!")          
+    print(pth+'/my_private_rsa_key.bin'+"不存在！！！請下載此檔案，再執行本轉檔作業。")
 exit()
