@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from selenium import webdriver
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import AES, PKCS1_OAEP
@@ -9,10 +10,11 @@ import sys
 import time
 import pandas
 import datetime
-wkdir="../../.."
 if sys.platform=='linux':
+    wkdir="/home/eric"
     pth=wkdir+'/下載'
 else:
+    wkdir="/home/eric"
     pth=wkdir+'/Downloads'
 def Descrypt(filename):
     code = 'nooneknows'
@@ -108,4 +110,5 @@ if os.path.exists(pth+'/my_private_rsa_key.bin'):
         print("錯誤: 只能輸入 3, 4, T!")
 else:
     print(pth+'/my_private_rsa_key.bin'+"不存在！！！請下載此檔案，再執行本轉檔作業。")
+sel=input("按Enter結束作業...")
 exit()
