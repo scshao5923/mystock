@@ -14,7 +14,7 @@ if sys.platform=='linux':
     wkdir="/home/eric"
     pth=wkdir+'/下載'
 else:
-    wkdir="/home/eric"
+    wkdir="/Users/mandyshao"
     pth=wkdir+'/Downloads'
 def Descrypt(filename):
     code = 'nooneknows'
