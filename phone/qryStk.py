@@ -1,6 +1,8 @@
 import webbrowser
 import stklib
 import sys
+import os
+pth=os.environ['HOMEDRIVE']+os.environ['HOMEPATH']+'/Documents/python/stk/'
 if sys.platform == 'ios':
         import ui        
         class MyView(ui.View):
@@ -14,9 +16,9 @@ if sys.platform == 'ios':
                 v.frame = (0,0,400,568)
                 wv.frame = (0,0,400,568)
                 v.present()
-else:
-        import webview
-        import threading
+#else:
+#        import webview
+#        import threading
 		
 #print(sys.argv)
   
@@ -51,12 +53,19 @@ if sys.platform == 'ios':
         content=h1+stklib.qry(sys.argv[1],sys.argv[2],sys.argv[3])+e1
         view(content)
 else:
-        content=h1+stklib.qry('stk','2548','stk,dtdat')+e1
-        def load_html():
-                webview.load_html(content)
-        t = threading.Thread(target=load_html)
-        t.start()
-        webview.create_window('Load HTML Example')
+        p1=input("查詢類型:1股票2成交日:")
+        p2=input("查詢資料:")
+        p3=input("排序類型:1股票2成交日:")
+        content=h1+stklib.qry('stk' if p1=='1' else 'dtdat',p2,'stk,dtdat' if p3=='1' else 'dtdat,stk')+e1
+        f=open(pth+'result.html','w')
+        f.write(content)
+        f.close()
+        os.system(pth+'result.html')
+#        def load_html():
+#                webview.load_html(content)
+#        t = threading.Thread(target=load_html)
+#        t.start()
+#        webview.create_window('Load HTML Example')
 #print('邵世昌')
 #webbrowser.open("shortcuts://?name=eric")
 #f=open("helloworld.html","w",encoding="UTF-8")

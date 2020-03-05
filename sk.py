@@ -14,7 +14,7 @@ if sys.platform=='linux':
     wkdir="/home/eric"
     pth=wkdir+'/下載'
 else:
-    wkdir="/Users/mandyshao"
+    wkdir=os.environ['HOMEDRIVE']+os.environ['HOMEPATH']
     pth=wkdir+'/Downloads'
 def Descrypt(filename):
     code = 'nooneknows'
@@ -35,7 +35,7 @@ def Descrypt(filename):
     return data
 
 def getCsv(qryTy):
-    driver=webdriver.Chrome(wkdir+'/chromedriver')
+    driver=webdriver.Chrome(wkdir+'/Documents/python/chromedriver')
     #driver.implicitly_wait(30)
     driver.get('https://etrade.yuanta.com.tw/tsweb/')
     #設定身份證

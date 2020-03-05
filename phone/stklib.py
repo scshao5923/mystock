@@ -7,9 +7,9 @@ import os
 import webbrowser
 import sys
 from jinja2 import Environment
-
+pth=os.environ['HOMEDRIVE']+os.environ['HOMEPATH']+'/Documents/python/'
 def imp(qryTy):
-        db=sqlite3.connect("stk.db")
+        db=sqlite3.connect(pth+"stk.db")
         cursor=db.cursor()
         if qryTy in ('3','4','T'):
                 for x in glob.glob('a*.csv'):
@@ -76,7 +76,7 @@ def qry(whereTy,data,orderTy):
                 "where " +whereTy + " like ? "+ \
                 "order by " + \
                 orderTy
-        db=sqlite3.connect("stk.db")
+        db=sqlite3.connect(pth+"stk.db")
         cursor=db.cursor()
         cursor.execute(sql , ('%'+data+'%',))
         result = cursor.fetchall()
