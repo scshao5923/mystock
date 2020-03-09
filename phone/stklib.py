@@ -12,14 +12,15 @@ def imp(qryTy):
         db=sqlite3.connect(pth+"stk.db")
         cursor=db.cursor()
         if qryTy in ('3','4','T'):
-                for x in glob.glob('a*.csv'):
+                for x in glob.glob(pth+'a*.csv'):
                         yr=os.path.basename(x)[1:5]
                         with open(x, newline='',encoding='utf-8') as csvfile:
                                 spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
                                 r1="(.*)月(.*)日"
                                 r2="(.*)/(.*)"
                                 cnt=0
-                                for row in list(spamreader)[1:]:
+                                for row in list(spamreader)[2:]:
+                                        #print(row)
                                         cnt=cnt+1
                                         t=re.match(r1,row[0])
                                         if t:
@@ -99,11 +100,10 @@ def qry(whereTy,data,orderTy):
 """
         return Environment().from_string(template).render(rows=result)	
 if __name__ == '__main__':
-        #print(sys.argv,len(sys.argv))
-        if len(sys.argv)==2:
-                imp(sys.argv[1])
-        else:
-                imp('')
-        webbrowser.open("shortcuts:")
+    sel=(input("\n(T)本年度 (3)本月 (4)上月：")).upper()
+    if sel in('T','3','4'):
+        imp(sel)
+    else:
+        print("錯誤: 只能輸入 3, 4, T!")
 
 
