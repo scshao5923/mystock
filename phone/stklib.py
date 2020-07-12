@@ -19,7 +19,7 @@ def imp(qryTy):
                                 r1="(.*)月(.*)日"
                                 r2="(.*)/(.*)"
                                 cnt=0
-                                for row in list(spamreader)[2:]:
+                                for row in list(spamreader)[1:]:
                                         #print(row)
                                         cnt=cnt+1
                                         t=re.match(r1,row[0])
